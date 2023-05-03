@@ -1,0 +1,10 @@
+kubectl create ns kubernetes-dashboard
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/ 
+helm repo update
+helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard -n kubernetes-dashboard
+kubectl apply -f kubernetes-serviceaccount.yaml
+kubectl patch svc/kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' -n kubernetes-dashboard
+kubectl create token dashboard-admin -n kubernetes-dashboard --duration=720h
+port=$(kubectl get svc/kubernetes-dashboard -n kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
+echo -e "\nhttps://localhost:$port/"
+echo

@@ -1,0 +1,7 @@
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply -f kubernetes-serviceaccount.yaml
+kubectl patch svc/kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' -n kubernetes-dashboard
+port=$(kubectl get svc/kubernetes-dashboard -n kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.protocol=="TCP")].nodePort}')
+kubectl create token dashboard-admin -n kubernetes-dashboard --duration=720h
+echo -e "\nhttps://localhost:$port/"
+echo
