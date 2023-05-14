@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "displayName": "Enable Purge Protection for Key Vaults",
+    "description": "This policy enforces the enablement of purge protection for Azure Key Vaults.",
+    "mode": "All",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.KeyVault/vaults"
+          },
+          {
+            "field": "Microsoft.KeyVault/vaults/enablePurgeProtection",
+            "exists": false
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
