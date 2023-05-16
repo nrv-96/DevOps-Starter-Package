@@ -1,25 +1,94 @@
 {
-  "properties": {
-    "displayName": "Enable Purge Protection for Key Vaults",
-    "description": "This policy enforces the enablement of purge protection for Azure Key Vaults.",
-    "mode": "All",
-    "parameters": {},
-    "policyRule": {
-      "if": {
-        "allOf": [
-          {
-            "field": "type",
-            "equals": "Microsoft.KeyVault/vaults"
-          },
-          {
-            "field": "Microsoft.KeyVault/vaults/enablePurgeProtection",
-            "exists": false
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "equals": "Microsoft.KeyVault/vaults"
+        },
+        {
+          "not": {
+            "value": "[field('Microsoft.KeyVault/vaults/enablePurgeProtection')]",
+            "equals": true
           }
-        ]
-      },
-      "then": {
-        "effect": "deny"
+        }
+      ]
+    },
+    "then": {
+      "effect": "deployIfNotExists",
+      "details": {
+        "type": "Microsoft.KeyVault/vaults",
+        "roleDefinitionIds": [
+          "/providers/Microsoft.Authorization/roleDefinitions/f25e0fa2-a7c8-4377-a976-54943a77a395"
+        ],
+        "existenceCondition": {
+          "allOf": [
+            {
+              "field": "Microsoft.KeyVault/vaults/enablePurgeProtection",
+              "equals": "true"
+            }
+          ]
+        },
+        "deployment": {
+          "properties": {
+            "mode": "incremental",
+            "template": {
+              "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+              "contentVersion": "1.0.0.0",
+              "parameters": {
+                "keyvaultName": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "sku": {
+                  "type": "object"
+                },
+                "tenantId": {
+                  "type": "string"
+                },
+                "accessPolicies": {
+                  "type": "array"
+                }
+              },
+              "resources": [
+                {
+                  "type": "Microsoft.KeyVault/vaults",
+                  "apiVersion": "2018-02-14",
+                  "name": "[parameters('keyVaultName')]",
+                  "location": "[parameters('location')]",
+                  "properties": {
+                    "tenantId": "[parameters('tenantId')]",
+                    "enablePurgeProtection": true,
+                    "sku": "[parameters('sku')]",
+                    "accessPolicies": "[parameters('accessPolicies')]"
+                  }
+                }
+              ]
+            },
+            "parameters": {
+              "keyvaultName": {
+                "value": "[field('name')]"
+              },
+              "location": {
+                "value": "[field('location')]"
+              },
+              "sku": {
+                "value": "[field('Microsoft.KeyVault/vaults/sku')]"
+              },
+              "tenantId": {
+                "value": "[field('Microsoft.KeyVault/vaults/tenantId')]"
+              },
+              "accessPolicies": {
+                "value": "[field('Microsoft.KeyVault/vaults/accessPolicies')]"
+              }
+            }
+          }
+        }
       }
     }
-  }
+  },
+  "parameters": {}
 }
