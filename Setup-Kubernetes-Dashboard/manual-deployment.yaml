@@ -1,5 +1,5 @@
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/nrv-96/DevOps-Starter-Package/ba645db8990e40902ad6274296dcd205b4f3a5f5/Setup-Kubernetes-Dashboard/kubernetes-serviceaccount.yaml
+kubectl apply -f https://raw.githubusercontent.com/nrv-96/DevOps-Starter-Package/ba645db8990e40902ad6274296dcd205b4f3a5f5/Setup-Kubernetes-Dashboard/kubernetes-serviceaccount.yaml
 kubectl patch svc/kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' -n kubernetes-dashboard
 port=$(kubectl get svc/kubernetes-dashboard -n kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.protocol=="TCP")].nodePort}')
 kubectl create token dashboard-admin -n kubernetes-dashboard --duration=720h
