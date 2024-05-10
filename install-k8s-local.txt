@@ -7,6 +7,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest
 sudo dpkg -i minikube_latest_amd64.deb
 minikube start
 minikube dashboard
+#/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/deployment?namespace=_all
 #https://minikube.sigs.k8s.io/docs/start/
 
 2. k3s
