@@ -1,0 +1,14 @@
+#Install K8s Locally 
+
+1.Minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+#https://minikube.sigs.k8s.io/docs/start/
+
+2. k3s
+curl -sfL https://get.k3s.io | sh -
+#https://www.digitalocean.com/community/tutorials/how-to-setup-k3s-kubernetes-cluster-on-ubuntu
+
+3.microk8s 
+sudo snap install microk8s --classic
+#https://ubuntu.com/tutorials/install-a-local-kubernetes-with-microk8s#2-deploying-microk8s
