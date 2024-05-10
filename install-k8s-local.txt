@@ -1,4 +1,6 @@
 #Install K8s Locally 
+sudo apt update
+sudo apt upgrade -y
 
 1.Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
