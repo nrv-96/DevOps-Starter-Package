@@ -17,3 +17,7 @@ curl -sfL https://get.k3s.io | sh -
 3.microk8s 
 sudo snap install microk8s --classic
 #https://ubuntu.com/tutorials/install-a-local-kubernetes-with-microk8s#2-deploying-microk8s
+
+#Kubectl Autocomplete Command:
+source <(kubectl completion bash) 
+echo "source <(kubectl completion bash)" >> ~/.bashrc
