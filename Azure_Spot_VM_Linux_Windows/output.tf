@@ -8,6 +8,7 @@ output "windows_pulic_ip" {
 
 output "windows_vm_password" {
   value     = random_password.windows_vm.result
+  sensitive = true
 }
 
 #output "linux_vm_password" {
