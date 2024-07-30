@@ -32,7 +32,7 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
   name                  = "windows-vm"
   resource_group_name   = azurerm_resource_group.resource_group.name
   tags                  = var.tags
-  size                  = "Standard_D2as_v5" #Standard_D4d_v5,Standard_D4d_v4,D4_v4
+  size                  = "Standard_E2s_v3" #Standard_D4d_v5,Standard_D4d_v4,D4_v4,Standard_E2s_v3
   admin_username        = var.admin_user
   admin_password        = random_password.windows_vm.result
   location              = var.location
