@@ -41,9 +41,9 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
   timezone              = "India Standard Time"
   network_interface_ids = [azurerm_network_interface.windows_nic.id, ]
   source_image_reference {
-    offer     = "WindowsServer"
-    publisher = "MicrosoftWindowsServer"
-    sku       = "2022-Datacenter"
+    offer     = "windows-11" #"WindowsServer"
+    publisher = "MicrosoftWindowsDesktop" #"MicrosoftWindowsServer"
+    sku       = "win11-23h2-ent"
     version   = "latest"
   }
   os_disk {
