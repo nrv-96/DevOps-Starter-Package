@@ -43,7 +43,7 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
   source_image_reference {
     offer     = "windows-11" #"WindowsServer"
     publisher = "MicrosoftWindowsDesktop" #"MicrosoftWindowsServer"
-    sku       = "win11-23h2-ent"
+    sku       = "win11-21h2-pro"
     version   = "latest"
   }
   os_disk {
