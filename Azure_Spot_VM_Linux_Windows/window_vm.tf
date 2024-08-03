@@ -42,9 +42,9 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
   license_type          = "None"
   network_interface_ids = [azurerm_network_interface.windows_nic.id, ]
   source_image_reference {
-    offer     = "windows-11" #"WindowsServer"
-    publisher = "MicrosoftWindowsDesktop" #"MicrosoftWindowsServer"
-    sku       = "win11-21h2-pro"
+    offer     = "WindowsServer" #"WindowsServer"
+    publisher = "MicrosoftWindowsServer" #"MicrosoftWindowsServer"
+    sku       = "2022-Datacenter"
     version   = "latest"
   }
   os_disk {
