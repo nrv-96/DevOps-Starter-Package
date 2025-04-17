@@ -23,6 +23,21 @@ EOF
 # Create token to get access of dashboard
 kubectl create token kubernetes-dashboard-kong -n kubernetes-dashboard  --duration=720h
 
+# Wait until all pods are in running state
+NAMESPACE="kubernetes-dashboard"
+echo "⏳ Waiting for all pods in namespace '$NAMESPACE' to be in 'Running' state..."
+while true; do
+  NOT_READY_COUNT=$(kubectl get pods -n "$NAMESPACE" --no-headers \
+    | grep -v "Running" \
+    | wc -l)
+  if [ "$NOT_READY_COUNT" -eq 0 ]; then
+    break
+  else
+    echo "⏱️  $NOT_READY_COUNT pod(s) not in 'Running' state yet..."
+    sleep 
+  fi
+done
+
 # Service Port forward to access the dashboard 
 kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 
