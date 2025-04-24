@@ -34,7 +34,7 @@ while true; do
     break
   else
     echo "⏱️  $NOT_READY_COUNT pod(s) not in 'Running' state yet..."
-    sleep 
+    sleep 5
   fi
 done
 
